@@ -163,3 +163,68 @@ If the plan looks right, reply "confirmed" (plus your answer). I'll then write `
 
 ######## user answer
 "confirmed"  but just make a short statistical summary about what it did
+
+################################## next ##############################
+Here is RFunction.R for Fixed Interval Track Sampling, with the short statistical summary you asked for. I couldn’t run it, because R isn’t installed in this environment. Please test it locally with the template’s test data before publishing.
+RFunction.R
+..................
+
+The statistical summary
+
+The App now saves a small table called thinning_summary.csv. Users can download it in MoveApps as an artefact (an extra output file). It has one row per animal plus a final row named ALL for the whole dataset. Each row shows:
+
+Locations: the number of locations before and after thinning.
+Percent removed: how much of the data was dropped.
+Median time gap: the typical time between locations, in minutes, before and after. With the default setting, the “after” value should be close to 60 minutes.
+
+The App also writes one line to the log with the overall result. For example: “Output: 1200 of 9800 locations kept (87.8% removed); 12 of 12 tracks kept. Median time lag before: 5 min; after: 60 min.”
+
+What changed from the agreed plan
+The App now creates a file. Because of the summary table, appspec.json must say that the App creates artefacts ("createsArtifacts": true).
+dplyr is no longer needed. I remove each animal’s first point with base R (duplicated(mt_track_id(...))). So the only package the App needs is move2.
+Rules the next files must follow
+Setting IDs: they must be exactly interval_value (INTEGER, default 1) and interval_unit (DROPDOWN, default "hour").
+Dropdown options: they must be exactly second, minute, hour, day, week and month. The code stops with an error for any other value.
+
+Next is appspec.json. Shall I write it?
+
+########################### next ###############
+
+Before I can finish `appspec.json`, I need a few details from you: the license, the people, the keywords and the funding. Below is a draft. The parts marked `<...>` are still to fill in.
+
+**A correction:** earlier I said `appspec.json` needs `"createsArtifacts": true`. That was wrong. The current MoveApps specification and template have no such field. An App makes the summary file simply by calling `appArtifactPath()` in `RFunction.R`, so nothing extra is needed here.
+
+### Draft `appspec.json`
+
+```json
+......
+```
+
+### What I checked
+
+- **`version`:** `"1.2"`, the same value the current official template uses.
+- **Setting IDs:** they match `rFunction(data, interval_value, interval_unit, ...)` exactly.
+- **Dropdown:** the default `"hour"` is one of the options, which the MoveApps rules require.
+- **Packages:** only `move2` is listed. It comes from CRAN, so `{"name": "move2"}` is the right format. `moveapps` and base R packages are not listed, as the rules say.
+- **Reference:** the App depends mainly on `move2`, so I added the `move2` paper with the type `Requires`, as MoveApps recommends. I wrote the paper details from memory, so please check them by opening the DOI link.
+
+### Questions for you
+
+**1. License: which one do you want?**
+
+| Key | In simple words |
+|---|---|
+| `MIT` | Very open. Anyone can use or change the code, even in closed software, as long as they keep your copyright notice. |
+| `BSD-3-Clause` | Like MIT, but people may not use your name to promote their own work without your permission. |
+| `GPL-3.0-or-later` | Anyone who shares a changed version must also share their code under GPL. |
+| `AGPL-3.0-or-later` | Like GPL, and it also applies when the software runs on a server. |
+
+**2. People:** at least one person must be the **creator**, and one **author** must have a valid email. For each person, please give:
+- first name, middle initials and last name;
+- email;
+- roles (`author`, `creator`, `compiler`, `contributor`, `copyright holder`, `contractor`, `data contributor`, `funder`, `reviewer` or `translator`);
+- ORCID, affiliation, and affiliation ROR link (these three are optional).
+
+**3. Keywords:** do you want to add or remove any of the suggested keywords?
+
+**4. Funding (optional):** do you want to add a funder name and a comment, such as a grant number?
