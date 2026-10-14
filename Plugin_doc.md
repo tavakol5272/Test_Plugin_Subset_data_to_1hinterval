@@ -228,3 +228,98 @@ Before I can finish `appspec.json`, I need a few details from you: the license, 
 **3. Keywords:** do you want to add or remove any of the suggested keywords?
 
 **4. Funding (optional):** do you want to add a funder name and a comment, such as a grant number?
+
+################################ next ###########################
+Matches RFunction.R: the setting IDs interval_value and interval_unit match the function arguments exactly. The dropdown options are the same units the code accepts.
+Package: only move2 is listed, which is all the App needs.
+Not checked yet: I wrote the move2 reference from memory, so please confirm it by opening the DOI link. You can also paste the file into the MoveApps Settings Editor as a final check.
+Next is app-configuration.json, the settings used for local testing. Should I keep the defaults of 1 and hour, or do you want different values for testing?
+
+######### next ###########
+Here is `app-configuration.json`, using the default values.
+
+### `app-configuration.json`
+
+```json
+........
+```
+
+- **Names:** the two names are exactly the setting IDs from `appspec.json`, and there are no extra entries.
+- **`interval_value`:** written as a whole number (`1`, not `"1"`), as the `INTEGER` type requires.
+- **`interval_unit`:** `"hour"` is one of the allowed dropdown options (`second`, `minute`, `hour`, `day`, `week` or `month`).
+
+Next is `.env`, which tells the template which test data file to use when you run the App locally. Do you want to test with the example data that comes with the template, or with your own data (for example, one of your vulture `.rds` files)?
+answer: template data
+
+########### next ##########
+The template has **8 test files** that work with this App, because the App takes `move2::move2_loc` data. The `telemetrylist_aeqd` files are a different data type, so they won't work.
+
+| Study | Lat/lon coordinates | Mollweide projection |
+|---|---|---|
+| **Input 1:** MPIAB Disaster alert Mt Etna 2021 | `input1_move2loc_LatLon.rds` | `input1_move2loc_Mollweide.rds` |
+| **Input 2:** LifeTrack White Stork SW Germany | `input2_move2loc_LatLon.rds` | `input2_move2loc_Mollweide.rds` |
+| **Input 3:** MPIAB White Stork Prinzesschen | `input3_move2loc_LatLon.rds` | `input3_move2loc_Mollweide.rds` |
+| **Input 4:** LifeTrack Geese IG-RAS MPIAB ICARUS | `input4_move2loc_LatLon.rds` | `input4_move2loc_Mollweide.rds` |
+
+Below is `.env` with the template's default file, Input 4 in lat/lon:
+
+### `.env`
+
+```
+..........
+```
+
+- **Unchanged from the template:** the App uses no secret credentials or extra input files, so every line is exactly as in the template. `USER_APP_FILE_HOME_DIR` stays at its default and is not used.
+- **Where the results go:** after a local run, the thinned data is saved to `data/output/output.rds`. The summary table is saved to `data/output/thinning_summary.csv`.
+- **Testing other files:** before you publish, test with all 8 files above. Change only the `SOURCE_FILE` line each time. The Mollweide files are good for checking that the App works with projected data, not just lat/lon.
+- **Harder test cases:** for tests with tricky data, such as a single location, duplicate times or empty tracks, see the [Movebank Example Datasets](https://github.com/movestore/Movebank_Example_Datasets/blob/main/README.md).
+
+Do you want a different file than Input 4 for the first run? If not, the last file is `README.md`.
+
+
+
+############# next ##########
+I've set `.env` to use `input2_move2loc_LatLon.rds`. That is Input 2, LifeTrack White Stork SW Germany, in lat/lon coordinates.
+
+### `.env`
+
+```
+......
+```
+
+Only the `SOURCE_FILE` line changed; all other lines are the same as in the template. After a local run, you should find:
+- `data/output/output.rds`, the thinned data;
+- `data/output/thinning_summary.csv`, the summary table.
+
+Four files are now done: `RFunction.R`, `appspec.json`, `app-configuration.json` and `.env`. The last one is `README.md`. Shall I write it?
+
+############### next ################
+
+Here is `README.md`, the last of the five files. I wrote it from the actual App files: `RFunction.R` (with the `library("moveapps")` line added), `appspec.json` and `app-configuration.json`.
+
+### `README.md`
+
+````markdown
+.........
+````
+
+### Missing information
+
+- **GitHub link:** you haven't given me the repository link, so the `Github repository:` line is empty. Add the link once the repository exists.
+- **Screenshot:** I left out the optional screenshot section. You could add a picture of `thinning_summary.csv` or of a thinned track later.
+
+### Final check across all five files
+
+- **Setting IDs:** `interval_value` and `interval_unit` are the same in `RFunction.R`, `appspec.json`, `app-configuration.json` and `README.md`.
+- **Data types:** input and output are both `move2::move2_loc`, the same everywhere.
+- **Package:** only `move2` is needed. `moveapps` is loaded in `RFunction.R` but not listed in `appspec.json`, which follows the MoveApps rules.
+- **Summary file:** `thinning_summary.csv` is described with the same column names the code writes.
+- **No passwords or extra files:** the App needs no secret credentials and no auxiliary files, so `sdk.R` and `.gitignore` don't need changes.
+- **Remember:** `RFunction.R` must start with both `library("moveapps")` and `library("move2")`.
+- **Not tested:** none of the code has been run yet. Run it locally with `input2_move2loc_LatLon.rds`, and later with the other 7 compatible test files.
+
+### Last step: App Categories
+
+When you submit the App, MoveApps asks you to choose one or more Categories. They are grouped into the classes `Location Data`, `Integration` and `Helper`. I couldn't see the list of Categories, because the App Browser needs a login.
+
+Please open the [App Browser](https://www.moveapps.org/apps/browser) and send me the Category names you see. I'll suggest which ones fit this App. It is a data-preparation and filtering step, so a category about filtering or preparing location data is most likely the right one.
