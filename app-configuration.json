@@ -1,4 +1,4 @@
 {
-    "sdk": "MoveApps R SDK",
-    "year": 2014
+    "interval_value": 1,
+    "interval_unit": "hour"
 }
