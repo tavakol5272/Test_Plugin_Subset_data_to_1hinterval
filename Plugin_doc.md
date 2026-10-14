@@ -47,7 +47,7 @@ Note that MoveApps may already have Apps for thinning and for speed filtering. O
 6. **Name:** do you already have a name in mind? If not, I'll suggest 2–3 names after checking the existing Apps.
 
 
-####### user answers: ########
+######### user answers: ########
 1.Yes, your description is right. I want the data thinned to a regular time interval first, and then I want unrealistic movement points removed based on speed and distance.  
 2.I prefer two Apps. Please build App A first, the thinning App.  
 3.Yes, I want the user to be able to change the values. Please use 1 hour, 20 m/s, and 1000 km as the default settings.  
@@ -99,7 +99,7 @@ None of these are close to an existing App title. I avoided anything with "Thin 
 1. **Skip App A** and use the existing "Thin Data by Time" App, then start App B (recommended).
 2. **Build App A anyway.** If so, tell me what should make it different from the existing App, and pick one of the names above.
 
-#### user answer:
+####### user answer:
 Build App A anyway and ignore the code of that app, the name: Fixed Interval Track Sampling
 
 ############################### next ############################
@@ -160,3 +160,6 @@ No package needs replacing:
 1. **One point per animal:** this follows your original code, so an animal with only one point after thinning is removed. Should it be kept instead?
 
 If the plan looks right, reply "confirmed" (plus your answer). I'll then write `RFunction.R`, followed by `appspec.json`, `app-configuration.json`, `.env` and `README.md`.
+
+######## user answer
+"confirmed"  but just make a short statistical summary about what it did
