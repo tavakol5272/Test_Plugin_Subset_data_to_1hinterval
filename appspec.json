@@ -2,76 +2,64 @@
   "version": "1.2",
   "settings": [
     {
-      "id": "sdk",
-      "name": "The name of the MoveApps SDK",
-      "description": "Showcase requesting a string input from the users of your app.",
-      "defaultValue": "MoveApps SDK",
-      "type": "STRING"
-    },
-    {
-      "id": "year",
-      "name": "The year",
-      "description": "Insert description for the year setting setting",
-      "defaultValue": 2022,
+      "id": "interval_value",
+      "name": "Interval length",
+      "description": "Length of the time interval used for thinning. For each track, only the first location in each interval is kept. Must be a whole number of 1 or more. Default is 1.",
+      "defaultValue": 1,
       "type": "INTEGER"
     },
     {
-      "id": "auxiliary-file-a",
-      "name": "Personalization",
-      "description": "You can personalize the app by providing a file",
-      "type": "USER_FILE"
+      "id": "interval_unit",
+      "name": "Interval unit",
+      "description": "Unit of the time interval used for thinning. Default is hour.",
+      "defaultValue": "hour",
+      "type": "DROPDOWN",
+      "options": [
+        { "value": "second", "displayText": "Second(s)" },
+        { "value": "minute", "displayText": "Minute(s)" },
+        { "value": "hour", "displayText": "Hour(s)" },
+        { "value": "day", "displayText": "Day(s)" },
+        { "value": "week", "displayText": "Week(s)" },
+        { "value": "month", "displayText": "Month(s)" }
+      ]
     }
   ],
   "dependencies": {
     "R": [
       {
-        "name": "lubridate"
-      },
-      {
-        "remotes": "install_git('https://gitlab.com/bartk/move2.git')"
+        "name": "move2"
       }
     ]
   },
-  "providedAppFiles": [
-    {
-      "settingId": "auxiliary-file-a",
-      "from": "data/auxiliary/user-files/provided-app-files/auxiliary-file-a/sample.txt"
-    }
-  ],
   "license": {
     "key": "MIT"
   },
   "language": "eng",
   "keywords": [
-    "example",
-    "template"
+    "thinning",
+    "subsampling",
+    "time interval",
+    "regular sampling",
+    "data preparation",
+    "move2"
   ],
   "people": [
     {
-      "firstName": "Charles",
-      "middleInitials": null,
-      "lastName": "Darwin",
-      "email": "creator@example.com",
-      "roles": [
-        "author",
-        "creator"
-      ],
+      "firstName": "Anne",
+      "middleInitials": "K",
+      "lastName": "Scharf",
+      "email": "ascharf@ab.mpg.de",
+      "roles": ["author", "creator"],
       "orcid": null,
-      "affiliation": null,
-      "affiliationRor": null
-    }
-  ],
-  "funding": [
-    {
-      "name": "funder name",
-      "comment": "grant for App"
+      "affiliation": "Max-Planck-Institute of Animal Behavior",
+      "affiliationRor": "https://ror.org/026stee22"
     }
   ],
   "references": [
     {
-      "type": "IsDescribedBy",
-      "note": "Darwin, C. 1900. The creation. Journal XY. 1-2",
-      "url": "https://anylink.xyz"
+      "type": "Requires",
+      "note": "Kranstauber, B., Safi, K., Scharf, A.K. 2024. move2: R package for processing movement data. Methods in Ecology and Evolution 15(9): 1561-1567.",
+      "url": "https://doi.org/10.1111/2041-210X.14305"
     }
   ]
 }
